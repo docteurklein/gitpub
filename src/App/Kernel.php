@@ -9,15 +9,15 @@ class Kernel extends BaseKernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle,
             new \Symfony\Bundle\SecurityBundle\SecurityBundle,
             new \Symfony\Bundle\MonologBundle\MonologBundle,
+            new \JMS\SerializerBundle\JMSSerializerBundle,
+            new \Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle,
             new \Knp\RadBundle\KnpRadBundle,
             new \App\App,
-        );
-
-        return $bundles;
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

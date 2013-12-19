@@ -16,3 +16,7 @@ framework:
     trusted_proxies: ~
     session:         ~
 
+jms_serializer:
+    visitors:
+        json:
+            options: [128] # JSON_PRETTY_PRINT

@@ -1,3 +1,11 @@
 
 App:Dashboard:index:
     defaults: { _controller: app.controller.dashboard:indexAction }
+
+App:Dashboard:countTotal:
+    pattern: /count
+    defaults: { _controller: app.controller.dashboard:countTotalAction }
+
+App:Dashboard:latestInvolvedIssue:
+    pattern: /latest/{user}/issue
+    defaults: { _controller: app.controller.dashboard:getLatestInvolvedIssueAction }

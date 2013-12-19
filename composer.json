@@ -16,7 +16,8 @@
         "symfony/symfony": "~2.4",
         "symfony/monolog-bundle": "~2.3",
         "knplabs/rad-bundle": "*@dev",
-        "knplabs/github-api": "~1.2"
+        "knplabs/github-api": "~1.2",
+        "willdurand/hateoas-bundle": "0.1.1"
     },
     "require-dev": {
         "behat/behat": "~3@dev",
@@ -28,7 +29,8 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": { "App": "src/App", "Context": "features/" }
+        "psr-0": { "App": "src", "Context": "features/" },
+        "files": ["src/annotation.php"]
     },
     "extra": {
         "symfony-app-dir": "app",

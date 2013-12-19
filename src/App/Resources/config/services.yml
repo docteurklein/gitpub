@@ -13,7 +13,14 @@ services:
     app.controller.dashboard:
         class: App\Controller\DashboardController
         arguments:
+            - '@app.dashboard.decider'
+            - '@jms_serializer'
+
+    app.dashboard.decider:
+        class: App\Dashboard\Decider
+        arguments:
             - '@app.dashboard'
+            - '@github.client'
 
     app.dashboard:
         class: App\Dashboard
@@ -31,5 +38,38 @@ services:
         class: Github\HttpClient\CachedHttpClient
         arguments:
             -
-                cache_dir: '%kernel.cache_dir%'
-                base_url: 'https://api.github.com'
+                cache_dir: '%kernel.cache_dir%/../../github'
+            - '@guzzle.client'
+
+    guzzle.client:
+        class: Guzzle\Http\Client
+        arguments:
+            - 'https://api.github.com'
+        calls:
+            - [addSubscriber, ['@guzzle.plugin.log']]
+
+    guzzle.plugin.log:
+        class: Guzzle\Plugin\Log\LogPlugin
+        arguments:
+            - '@guzzle.plugin.log.adapter'
+            - >
+                {request} {code}
+                {res_header_ETag}
+                {res_header_Last-Modified}
+                {res_header_X-RateLimit-Remaining}
+
+    guzzle.plugin.log.adapter:
+        class: Guzzle\Log\ClosureLogAdapter
+        arguments:
+            - '@app.guzzle.plugin.log.adapter.logger'
+
+    app.guzzle.plugin.log.adapter.logger:
+        class: App\Guzzle\Log\Logger
+        arguments:
+            - '@logger'
+
+    jms.serializer.handler.generator:
+        class: App\Serializer\Handler\GeneratorHandler
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+

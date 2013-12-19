@@ -2,20 +2,37 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Dashboard;
+use App\Dashboard\Decider;
+use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\Serializer;
 
 class DashboardController
 {
-    private $dashboard;
+    private $decider;
+    private $Serializer;
 
-    public function __construct(Dashboard $dashboard)
+    public function __construct(Decider $decider, Serializer $serializer)
     {
-        $this->dashboard = $dashboard;
+        $this->decider = $decider;
+        $this->serializer = $serializer;
     }
 
     public function indexAction()
     {
-        return new JsonResponse($this->dashboard->all());
+        $json = $this->serializer->serialize($this->decider, 'json');
+
+        return new Response($json);
+    }
+
+    public function countTotalAction()
+    {
+        return new Response(count(iterator_to_array($this->decider->all())));
+    }
+
+    public function getLatestInvolvedIssueAction($user)
+    {
+        $json = $this->serializer->serialize($this->decider->getLatestInvolvedIssue($user), 'json');
+
+        return new Response($json);
     }
 }
