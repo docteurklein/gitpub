@@ -1,0 +1,3 @@
+
+App:Dashboard:index:
+    defaults: { _controller: app.controller.dashboard:indexAction }

@@ -1,0 +1,38 @@
+{
+    "name": "knplabs/rad-edition",
+    "description": "The \"KnpLabs Symfony2 Rad Edition\"",
+    "keywords": ["Symfony2", "Symfony2 Rad Edition", "Symfony2 Distribution"],
+    "license":     "MIT",
+    "type": "project",
+    "homepage": "http://rad.knplabs.com",
+    "authors": [
+        {
+            "name":     "Knplabs",
+            "homepage": "http://knplabs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "~2.4",
+        "symfony/monolog-bundle": "~2.3",
+        "knplabs/rad-bundle": "*@dev",
+        "knplabs/github-api": "~1.2"
+    },
+    "require-dev": {
+        "behat/behat": "~3@dev",
+        "behat/mink-extension": "~2@dev",
+        "behat/mink-selenium2-driver": "*",
+        "phpspec/phpspec": "~2@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": { "App": "src/App", "Context": "features/" }
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "symlink"
+    }
+}

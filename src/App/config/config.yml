@@ -1,0 +1,18 @@
+parameters:
+    app.mongodb.dbname: "gitpub"
+
+imports:
+    - { resource: security.yml }
+
+framework:
+    secret: "123456789"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    default_locale:  en
+    trusted_proxies: ~
+    session:         ~
+

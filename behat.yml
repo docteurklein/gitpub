@@ -1,0 +1,18 @@
+default:
+    autoload:
+        'App': %paths.base%/src
+        'Context': %paths.base%/features
+    suites:
+        default:
+            path: %paths.base%/features
+            contexts:
+                - Context\FeatureContext
+                - Behat\MinkExtension\Context\MinkContext
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url:    'http://localhost:8080/app_test.php'
+            selenium2:   ~
+            default_session: selenium2
+            javascript_session: selenium2
+            show_auto: true
+            show_cmd: chrome %s

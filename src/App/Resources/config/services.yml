@@ -1,0 +1,35 @@
+services:
+    app.mongo_client:
+        class: MongoClient
+        arguments:
+            - 'mongodb://localhost:27017'
+
+    app.mongo_db:
+        class: MongoDB
+        factory_service: mongo_client
+        factory_method:  selectDB
+        arguments: ['%app.mongodb.dbname%']
+
+    app.controller.dashboard:
+        class: App\Controller\DashboardController
+        arguments:
+            - '@app.dashboard'
+
+    app.dashboard:
+        class: App\Dashboard
+        arguments:
+            - '@github.client'
+
+    github.client:
+        class: Github\Client
+        arguments:
+            - '@github.client.cached'
+        calls:
+            - [authenticate, ['6244e67ae95f2307851af09415046def11cfe205', null, http_token]]
+
+    github.client.cached:
+        class: Github\HttpClient\CachedHttpClient
+        arguments:
+            -
+                cache_dir: '%kernel.cache_dir%'
+                base_url: 'https://api.github.com'
